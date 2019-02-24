@@ -7,11 +7,11 @@ spring:
         enabled: true
         service-id: CONFIG
       profile: dev
-  rabbitmq:
-    host: 192.168.192.129
-    port: 5672
-    username: guest
-    password: guest
+    stream:
+      bindings:
+        myMessage:
+          group: order   # 可以做到只有一个服务的实例消费到消息
+          content-type: application/json
 eureka:
   client:
     service-url:
