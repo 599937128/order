@@ -2,6 +2,7 @@ package com.lv.order.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,10 @@ import java.util.Arrays;
 public class HystrixController {
 
 //    @HystrixCommand(fallbackMethod = "fallback")
-    @HystrixCommand()
+    @HystrixCommand(commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",
+            value = "3000")
+    })
     @GetMapping("/getProductInfoList")
     public String getProductInfoList() {
         RestTemplate restTemplate = new RestTemplate();
